@@ -3,8 +3,7 @@ import imutils
 import numpy as np
 from save_image import save_img
 
-def resize_image(image_name):
-    image = cv2.imread(image_name)
+def resize_image(image):
     resize_choice = int(input("Enter choice: 1. Manual Crop 2. Aspect Ratio Intact 3.Exit\n"))
     if resize_choice==1:
         done = 0
@@ -45,9 +44,8 @@ def resize_image(image_name):
                 cv2.destroyAllWindows()
                 done = 0
     else:
-        return
-    save_img(image_name,resized)
-    return
+        return image
+    return resized
 
 
 # resize_image("nature.jpeg")
