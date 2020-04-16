@@ -4,8 +4,12 @@ import imutils
 def save_img(image_name,image,new_image):
     cv2.imshow("Original Image", image)
     cv2.waitKey(0)
-    cv2.imshow("Edited Image", new_image)
-    cv2.waitKey(0)
+    cv2.imshow("Edited Image, press any key to continue", new_image)
+    l = cv2.waitKey(0)
+    if l:
+        cv2.destroyAllWindows()
+    else:
+        cv2.destroyAllWindows()
 
     action = input("Do you want to overwrite original image(y/n) or save as new image: ")
     if action == 'y':

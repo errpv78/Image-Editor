@@ -12,8 +12,8 @@ def resize_image(image):
             width = int(input("Enter width: "))
             dim = (width, height)
             resized = cv2.resize(image,dim)
-            print("Loading Image..\nIf satisfied press 1 else 0")
-            cv2.imshow("Fixed Resizing", resized)
+            print("Loading Image..")
+            cv2.imshow("If satisfied press 1 else 0", resized)
             done = cv2.waitKey(0)
             # print(done)
             if done==49:
@@ -33,8 +33,8 @@ def resize_image(image):
             r = new_h / h
             dim = (int(r*w),new_h)
             resized = cv2.resize(image, dim)
-            print("Loading Image..\nIf satisfied press 1 else 0")
-            cv2.imshow("Fixed Resizing", resized)
+            print("Loading Image..")
+            cv2.imshow("If satisfied press 1 else 0", resized)
             done = cv2.waitKey(0)
             # print(done)
             if done == 49:
