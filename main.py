@@ -6,6 +6,9 @@ from effects import to_blue,blur,to_gray,edges
 from rotate_image import rotate
 from save_image import save_img
 from image_fusion import fuse_image
+from resizeimage import resizeimage
+from PIL import Image
+import numpy as np
 
 print("Welcome to awesome image editor!!\n")
 load = False
@@ -15,13 +18,16 @@ image = None
 while image is None:
     image_name=input("Enter image name(with extension): ")
     image = cv2.imread(image_name)
+    (h, w, d) = image.shape
     if image is None:
         print("Image not found")
     else:
-        (h, w, d) = image.shape
-        r = 300 / h
-        dim = (int(r * w), 300)
-        image = cv2.resize(image, dim)
+        with open(image_name, 'r+b') as f:
+            with Image.open(f) as image:
+                cover = resizeimage.resize_cover(image, [min(w,600), min(h,400)])
+        image = np.array(cover)
+        # Convert RGB to BGR
+        image = image[:, :, ::-1].copy()
         cv2.imshow("Press any key to continue",image)
         l = cv2.waitKey(0)
         if l:
