@@ -51,7 +51,7 @@ def fuse_image(target):
 
 		images = [cv2.imread(file) for file in glob.glob("/home/err_pv/Desktop/Parikh_linux/Deep Learning/openCV/Image-Editor/default_stlye/*.jpeg")]
 		source = images[choice]
-		cv2.imshow("Source", source)
+		cv2.imshow("Source Press any key to continue", source)
 		extra = cv2.waitKey(0)
 		cv2.destroyAllWindows()
 
@@ -75,7 +75,7 @@ def fuse_image(target):
 					cv2.destroyAllWindows()
 
 	transfer = color_transfer(source, target)
-	cv2.imshow("Press any key to continue", transfer)
+	cv2.imshow("Edited image Press any key to continue", transfer)
 	l = cv2.waitKey(0)
 	cv2.destroyAllWindows()
 	return transfer
