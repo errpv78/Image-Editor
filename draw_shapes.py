@@ -222,6 +222,18 @@ def shape(image):
                 cv2.putText(temp1, string, (x, y),cv2.FONT_HERSHEY_SIMPLEX, fontScale=f, color=(0, 0, 0), thickness=t)
                 cv2.imshow("Arrow keys to move, (t, inc size, space to dec size)", temp1)
                 l = cv2.waitKey(0)
+            elif l==119:
+                t += 1
+                cv2.putText(temp1, string, (x, y),cv2.FONT_HERSHEY_SIMPLEX, fontScale=f, color=(0, 0, 0), thickness=t)
+                cv2.imshow("Arrow keys to move, (t, inc size, space to dec size)", temp1)
+                l = cv2.waitKey(0)
+            elif l==115:
+                if t>1:
+                    t -= 1
+                cv2.putText(temp1, string, (x, y),cv2.FONT_HERSHEY_SIMPLEX, fontScale=f, color=(0, 0, 0), thickness=t)
+                cv2.imshow("Arrow keys to move, (t, inc size, space to dec size)", temp1)
+                l = cv2.waitKey(0)
+
             else:
                 cv2.destroyAllWindows()
                 break

@@ -1,5 +1,6 @@
 import cv2
 import imutils
+from time import sleep
 
 def save_img(image_name,image,new_image):
     cv2.imshow("Original Image Press any ley to continue", image)
@@ -19,8 +20,10 @@ def save_img(image_name,image,new_image):
     if action == 'y':
         cv2.imwrite(image_name, new_image)
         print("Image saved as", image_name)
+        sleep(1)
     else:
         new = input("Enter new name: ")
         new_name = new + image_name
         cv2.imwrite(new_name, image)
         print("Image saved as", new_name)
+        sleep(1)
