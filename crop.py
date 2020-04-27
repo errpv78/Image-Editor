@@ -3,35 +3,17 @@ import numpy as np
 
 
 def four_point_transform(image, pts):
-    #  image  variable is image we want to apply perspective
-    #  transform to. And the pts  list is the list of four
-    #  points that contain the ROI of the image we want to
-    #  transform.
 
-    # obtain a consistent order of points and unpack them
-    # individually
     pts = np.array(pts, dtype="float32")
     tl, tr, br, bl = pts[0], pts[1], pts[2], pts[3]
 
-    # compute the width of the new image, which will be
-    # maximum distance between bottom-right and bottom-left
-    # x-coordiates or the top-right and top-left x-coordinates
     widthA = np.sqrt(((br[0] - bl[0]) ** 2) + ((br[1] - bl[1]) ** 2))
     widthB = np.sqrt(((tr[0] - tl[0]) ** 2) + ((tr[1] - tl[1]) ** 2))
     maxWidth = max(int(widthA), int(widthB))
 
-    # compute the height of the new image, which will be
-    # maximum distance between top-right and bottom-right
-    # y-coordinates or the top-left and bottom-left y-coordinates
     heightA = np.sqrt(((tr[0] - br[0]) ** 2) + ((tr[1] - br[1]) ** 2))
     heightB = np.sqrt(((tl[0] - bl[0]) ** 2) + ((tl[1] - bl[1]) ** 2))
     maxHeight = max(int(heightA), int(heightB))
-
-    # now that we have dimensions of new image, construct
-    # set of destination points to obtain "birds eye view",
-    # (i.e. top-down view) of the image, again specifying
-    # points in top-left, top-right, bottom-right, and
-    # bottom-left order.
 
     dst = np.array([
         [0, 0],
@@ -39,25 +21,23 @@ def four_point_transform(image, pts):
         [maxWidth - 1, maxHeight - 1],
         [0, maxHeight - 1]], dtype="float32")
 
-    # compute perspective transform matrix and then apply
-    # it
-
     M = cv2.getPerspectiveTransform(pts, dst)
+    """For perspective transformation, we need a 3x3 transformation matrix.
+     Straight lines will remain straight even after transformation. To find
+     this transformation matrix, we need 4 points on the input image and
+    corresponding points on output image. Among these 4 points, 3 of them
+     should not be collinear. Then transformation matrix can be found by
+      function cv2.getPerspectiveTransform. Then apply cv2.warpPerspective
+       with this 3x3 transformation matrix."""
 
-    # This function requires two arguments, rect , which is
-    # list of 4 ROI points in original image, and dst ,
-    # which is our list of transformed points. The
-    # cv2.getPerspectiveTransform  function returns M ,
-    # which is actual transformation matrix.
-    warped = cv2.warpPerspective(image, M, (maxWidth, maxHeight))
-    cv2.imshow("Cropped", warped)
+    croped = cv2.warpPerspective(image, M, (maxWidth, maxHeight))
+    cv2.imshow("Cropped", croped)
     l = cv2.waitKey()
     if l==0:
         cv2.destroyAllWindows()
     else:
         cv2.destroyAllWindows()
-    # return the warped image
-    return warped
+    return croped
 
 def crop_img(image):
 
